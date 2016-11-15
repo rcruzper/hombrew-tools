@@ -1,0 +1,10 @@
+language: generic
+before_install:
+  - openssl aes-256-cbc -K $encrypted_32a347e524e6_key -iv $encrypted_32a347e524e6_iv -in deploy_key.enc -out deploy_key -d
+script: "./deploy.sh"
+env:
+  global:
+  - ENCRYPTION_LABEL: 32a347e524e6
+branches:
+  only:
+  - master

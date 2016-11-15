@@ -3,7 +3,7 @@ class Dps < Formula
   homepage "https://github.com/rcruzper/dps"
   url "https://github.com/rcruzper/dps/releases/download/v1.0.2/dps"
   version "1.0.2"
-  #sha256 "b07b4c3edb5bfab3ab7aec4cd5c94b2fca9a4369fe0850e44c581fdb59479a79"
+  sha256 "9a33d26faecfa23313bf4f5d6506376a84c46005d06816fd1ffe18b69c0fd7b1"
 
   depends_on "fzf"
 
