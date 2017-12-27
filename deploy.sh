@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e # Exit with nonzero exit code if anything fails
+set -x
 
 # Save some useful information
 REPO=`git config remote.origin.url`

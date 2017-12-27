@@ -1,10 +1,18 @@
 language: generic
 before_install:
-  - openssl aes-256-cbc -K $encrypted_32a347e524e6_key -iv $encrypted_32a347e524e6_iv -in deploy_key.enc -out deploy_key -d
-script: "./deploy.sh"
-env:
-  global:
-  - ENCRYPTION_LABEL: 32a347e524e6
+  - openssl aes-256-cbc -K $encrypted_268cc2d13964_key -iv $encrypted_268cc2d13964_iv -in github_deploy_key.enc -out github_deploy_key -d
+  - chmod 600 github_deploy_key
+  - eval $(ssh-agent -s)
+  - ssh-add github_deploy_key
+  - git config --global user.email "rcruzper@gmail.com"
+  - git config --global user.name "Travis CI"
+  - REPO=`git config remote.origin.url`
+  - SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
+script:
+  - sed -i -e "s/$old_version/$new_version/" $formula.rb
+  - sed -i -e "s/sha256 .*/sha256 \"$sha256\"/g" $formula.rb
+  - git commit -a -m "Updated $formula formula from TravisCI build $TRAVIS_BUILD_NUMBER"
+  - git push $SSH_REPO HEAD:master
 branches:
   only:
   - master
